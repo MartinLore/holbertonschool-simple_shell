@@ -25,10 +25,8 @@ int main(int ac, char **argv)
     char *token;
     int i;
 
-    /* declaring void variables */
     (void)ac;
 
-    /* Create a loop for the shell's prompt */
     while (1)
     {
         printf("%s", prompt);
@@ -51,7 +49,6 @@ int main(int ac, char **argv)
         strcpy(lineptr_copy, lineptr);
 
         /* split the string (lineptr) into an array of words */
-        /* calculate the total number of tokens */
         token = strtok(lineptr, delim);
 
         while (token != NULL)
