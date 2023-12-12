@@ -9,6 +9,7 @@ void execmd(char **argv){
 
 
     if (argv){
+        pid_t pid;
         /* get the command */
         command = argv[0];
 
@@ -18,13 +19,12 @@ void execmd(char **argv){
             exit(0);
         }
 
-
         /* generate the path to this command before passing it to execve */
         actual_command = get_location(command);
 
 
         /* Create a child process */
-        pid_t pid = fork();
+        pid = fork();
 
 
         if (pid < 0)
