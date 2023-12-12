@@ -18,11 +18,10 @@ char *get_location(char *command)
 		path_copy = strdup(path);
         /* Get length of the command that was passed */
 		command_length = strlen(command);
-       /* Get the first directory in the path */
+
 		path_token = strtok(path_copy, ":");
 		while(path_token != NULL)
 		{
-            /* Get the length of the directory*/
 			directory_length = strlen(path_token);
             /* allocate memory for storing the command name together with the directory name */
 		file_path = malloc(command_length + directory_length + 2); /* +2 for the '/' and the '\0' */
@@ -33,8 +32,6 @@ char *get_location(char *command)
 		strcat(file_path, "\0");
 			if (stat(file_path, &buffer) == 0)
 			{
-                /* return value of 0 means success implying that the file_path is valid*/
-               /* free up allocated memory before returning your file_path */
 				free(path_copy);
 				return (file_path);
 			}
@@ -47,7 +44,7 @@ char *get_location(char *command)
 		}
         /* free up the path_copy memory before returning NULL */
 	free(path_copy);
-        /* return NULL if the command is not found in any of the directories */
+
 	if (stat(command, &buffer) == 0)
 	{
 		return (command);
