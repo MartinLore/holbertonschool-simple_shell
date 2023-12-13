@@ -13,7 +13,6 @@
  * @param argv An array of strings containing the command line arguments.
  * @return 0 on success, -1 on failure.
  */
-
 int main(int ac, char **argv)
 {
     char *prompt = "(Shell) $ ";
@@ -31,7 +30,6 @@ int main(int ac, char **argv)
     {
         printf("%s", prompt);
         nchars_read = getline(&lineptr, &n, stdin);
-        /* check if the getline function failed or reached EOF or user use CTRL + D */
         if (nchars_read == -1)
         {
             printf("Exiting shell....\n");
@@ -45,7 +43,6 @@ int main(int ac, char **argv)
             perror("tsh: memory allocation error");
             return (-1);
         }
-        /* copy lineptr to lineptr_copy */
         strcpy(lineptr_copy, lineptr);
 
         /* split the string (lineptr) into an array of words */
@@ -58,7 +55,6 @@ int main(int ac, char **argv)
         }
         num_tokens++;
 
-        /* Allocate space to hold the array of strings */
         argv = malloc(sizeof(char *) * num_tokens);
 
         /* Store each token in the argv array */
@@ -73,7 +69,6 @@ int main(int ac, char **argv)
         }
         argv[i] = NULL;
 
-        /* execute the command */
         execmd(argv);
     }
 
