@@ -61,13 +61,9 @@ What we have learn in this project:
 - man_1_simple_shell - manual page for the simple_shell
 - main.h - header program file
 - Main functions:
-  - execute_command.c - execute a command
+  - execmd.c - execute a command
   - get_location.c - retrieve the location of a command in the system's PATH
   - main.c - main function for the simple shell
-- Additional functions:
-  - parser.c - parse user input into tokens
-  - wordcount.c - count the number of words in a string
-  - handle_signal.c - handle signals, e.g., Ctrl+C
 
 ## Usage
 
