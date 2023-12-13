@@ -3,7 +3,7 @@
 <br>
 
 <p align="center">
-  <img src="https://blog.holbertonschool.com/wp-content/uploads/2019/04/instagram_feed180.jpg" width="300" />
+  <img src="https://blog.holbertonschool.com/wp-content/uploads/2019/04/instagram_feed180.jpg" width="500" />
 </p>
 
 <h3 align="right">by Hernán Alegresa and Martin Morales<h3>
