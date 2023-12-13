@@ -3,7 +3,7 @@
 <br>
 
 <p align="center">
-  <img src="https://blog.holbertonschool.com/wp-content/uploads/2019/04/instagram_feed180.jpg" />
+  <img src="https://blog.holbertonschool.com/wp-content/uploads/2019/04/instagram_feed180.jpg" width="300" />
 </p>
 
 <h3 align="right">by Hernán Alegresa and Martin Morales<h3>
@@ -69,3 +69,103 @@ What we have learn in this project:
   - wordcount.c - count the number of words in a string
   - handle_signal.c - handle signals, e.g., Ctrl+C
 
+## Usage
+
+Clone this repository: <br>
+```
+git clone git@github.com:HernanAlegresa/holbertonschool-simple_shell.git
+```
+Switch inside the directory: 
+```
+cd holbertonschool-simple_shell
+```
+Compile all the files with the correct flags and the wildcard *.c :
+```
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -o ./hsh
+```
+You're all good to use the shell either in Interactive mode, to do so enter in your terminal:
+```
+./hsh
+```
+Then a prompt will be displayed, and you can enter commands.
+
+The other way is in Non-Interactive mode, for example if you want to list files and directory, command ```ls```, call the shell like so:
+```
+echo "/bin/ls" | ./hsh
+```
+
+## Example of usage
+### Interactive mode
+```
+$ ./hsh
+($) /bin/ls
+hsh main.c shell.c
+($)
+($) exit
+$
+```
+
+### Non-interactive mode
+```
+$ echo "/bin/ls" | ./hsh
+hsh main.c shell.c test_ls_2
+$
+$ cat test_ls_2
+/bin/ls
+/bin/ls
+$
+$ cat test_ls_2 | ./hsh
+hsh main.c shell.c test_ls_2
+hsh main.c shell.c test_ls_2
+$
+```
+
+## Man or help
+
+Allowed functions and system calls:
+
+all functions from string.h
+access (man 2 access)
+chdir (man 2 chdir)
+close (man 2 close)
+closedir (man 3 closedir)
+execve (man 2 execve)
+exit (man 3 exit)
+_exit (man 2 _exit)
+fflush (man 3 fflush)
+fork (man 2 fork)
+free (man 3 free)
+getcwd (man 3 getcwd)
+getline (man 3 getline)
+getpid (man 2 getpid)
+isatty (man 3 isatty)
+kill (man 2 kill)
+malloc (man 3 malloc)
+open (man 2 open)
+opendir (man 3 opendir)
+perror (man 3 perror)
+printf (man 3 printf)
+fprintf (man 3 fprintf)
+vfprintf (man 3 vfprintf)
+sprintf (man 3 sprintf)
+putchar (man 3 putchar)
+read (man 2 read)
+readdir (man 3 readdir)
+signal (man 2 signal)
+stat (__xstat) (man 2 stat)
+lstat (__lxstat) (man 2 lstat)
+fstat (__fxstat) (man 2 fstat)
+strtok (man 3 strtok)
+wait (man 2 wait)
+waitpid (man 2 waitpid)
+wait3 (man 2 wait3)
+wait4 (man 2 wait4)
+write (man 2 write)
+
+## Authors
+
+These project creators are the students of Holberton School Uruguay:
+
+***HERNÁN ALEGRESA*** --> https://github.com/HernanAlegresa
+
+***MARTIN MORALES*** --> https://github.com/MartinLore
