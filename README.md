@@ -196,7 +196,7 @@ write (man 2 write)
 
 ## Authors
 
-These project creators are the students of Holberton School Uruguay:
+These project creators are the students from Holberton School Uruguay:
 
 ***HERNÁN ALEGRESA*** --> https://github.com/HernanAlegresa
 
