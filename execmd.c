@@ -13,7 +13,7 @@ void execmd(char **argv){
         /* get the command */
         command = argv[0];
 
-
+        
         if (strcmp(command, "exit") == 0)
         {
             exit(0);

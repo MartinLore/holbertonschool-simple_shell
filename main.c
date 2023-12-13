@@ -25,6 +25,7 @@ int main(int ac, char **argv)
     int i;
 
     (void)ac;
+    (void)argv;
 
     while (1)
     {
@@ -37,7 +38,7 @@ int main(int ac, char **argv)
         }
 
         /* allocate space for a copy of the lineptr */
-        lineptr_copy = malloc(sizeof(char) * nchars_read);
+        lineptr_copy = malloc(sizeof(char) * (nchars_read + 1));
         if (lineptr_copy == NULL)
         {
             perror("tsh: memory allocation error");
@@ -56,25 +57,23 @@ int main(int ac, char **argv)
         num_tokens++;
 
         argv = malloc(sizeof(char *) * num_tokens);
+char **args = malloc(sizeof(char *) * num_tokens);
+/* Store each token in the args array */
+token = strtok(lineptr_copy, delim);
 
-        /* Store each token in the argv array */
-        token = strtok(lineptr_copy, delim);
+for (i = 0; token != NULL; i++)
+{
+    args[i] = strdup(token);
+    token = strtok(NULL, delim);
+}
+args[i] = NULL;
 
-        for (i = 0; token != NULL; i++)
-        {
-            argv[i] = malloc(sizeof(char) * strlen(token));
-            strcpy(argv[i], token);
+execmd(args);
 
-            token = strtok(NULL, delim);
-        }
-        argv[i] = NULL;
-
-        execmd(argv);
+/* free up allocated memory for args and its elements */
+for (i = 0; args[i] != NULL; i++) {
+    free(args[i]);
+}
+free(args);
     }
-
-    /* free up allocated memory */
-    free(lineptr_copy);
-    free(lineptr);
-
-    return (0);
 }
