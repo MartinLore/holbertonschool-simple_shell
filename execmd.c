@@ -43,8 +43,8 @@ void execmd(char **argv) {
         }
 
         /* Free memory only if actual_command is dynamically allocated */
-        if (actual_command != NULL && actual_command != command) {
-            free(actual_command);
-        }
+if (actual_command != command && actual_command != NULL && command != NULL && strcmp(actual_command, command) != 0) {
+    free(actual_command);
+}
     }
 }

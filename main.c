@@ -3,7 +3,7 @@
 int main(int ac, char **argv)
 {
     char **args = NULL;
-    char *prompt = "(Shell) $ ";
+    char *prompt = "$ ";
     char *lineptr = NULL, *lineptr_copy = NULL;
     size_t n = 0;
     ssize_t nchars_read;
@@ -17,23 +17,34 @@ int main(int ac, char **argv)
 
     while (1)
     {
-        printf("%s", prompt);
+        if (isatty(STDIN_FILENO))
+            printf("%s", prompt);
+
+        /* Set lineptr to NULL and n to 0 before calling getline */
+        lineptr = NULL;
+        n = 0;
+
         nchars_read = getline(&lineptr, &n, stdin);
-if (nchars_read == -1)
-{
-    printf("Exiting shell....\n");
-    free(lineptr);
-    lineptr = NULL;
-    return (-1);
-}
+
+        /* Check the return value of getline for errors or end of file */
+        if (nchars_read == -1)
+        {
+            if (lineptr != NULL)
+                free(lineptr);
+            
+            if (isatty(STDIN_FILENO))
+                return (0);
+            else
+                return (EXIT_SUCCESS);
+        }
 
         /* allocate space for a copy of the lineptr */
         lineptr_copy = malloc(sizeof(char) * (nchars_read + 1));
-if (lineptr_copy == NULL)
-{
-    perror("tsh: memory allocation error");
-    free(lineptr);
-    lineptr = NULL;
+        if (lineptr_copy == NULL)
+        {
+            perror("tsh: memory allocation error");
+            free(lineptr);
+            lineptr = NULL;
             return (-1);
         }
         strcpy(lineptr_copy, lineptr);
@@ -69,5 +80,10 @@ if (lineptr_copy == NULL)
         free(args);
 
         free(lineptr_copy);
+
+        /* Free the buffer allocated by getline and reset lineptr and n */
+        free(lineptr);
+        lineptr = NULL;
+        n = 0;
     }
 }
