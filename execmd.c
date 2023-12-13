@@ -21,6 +21,11 @@ void execmd(char **argv){
 
         /* generate the path to this command before passing it to execve */
         actual_command = get_location(command);
+    
+        if (actual_command == NULL) {
+            fprintf(stderr, "Command not found: %s\n", command);
+            return;
+        }
 
 
         /* Create a child process */
@@ -47,4 +52,5 @@ void execmd(char **argv){
             waitpid(pid, &status, 0);
         }
     }
+    free(actual_command);
 }

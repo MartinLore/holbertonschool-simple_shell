@@ -1,20 +1,8 @@
 #include "main.h"
-/**
- * @file main.c
- * @brief This file contains the main function for a simple shell program.
- *
- * The main function reads user input from the command line, parses it into tokens,
- * and executes the corresponding command. It uses the getline function to read
- * the input line and strtok function to split the line into tokens.
- * The tokens are stored in the argv array, which is then passed to the execmd function
- * for execution.
- *
- * @param ac The number of command line arguments.
- * @param argv An array of strings containing the command line arguments.
- * @return 0 on success, -1 on failure.
- */
+
 int main(int ac, char **argv)
 {
+    char **args = NULL;
     char *prompt = "(Shell) $ ";
     char *lineptr = NULL, *lineptr_copy = NULL;
     size_t n = 0;
@@ -34,6 +22,7 @@ int main(int ac, char **argv)
         if (nchars_read == -1)
         {
             printf("Exiting shell....\n");
+            free(lineptr);
             return (-1);
         }
 
@@ -42,6 +31,7 @@ int main(int ac, char **argv)
         if (lineptr_copy == NULL)
         {
             perror("tsh: memory allocation error");
+            free(lineptr);
             return (-1);
         }
         strcpy(lineptr_copy, lineptr);
@@ -56,24 +46,26 @@ int main(int ac, char **argv)
         }
         num_tokens++;
 
-        argv = malloc(sizeof(char *) * num_tokens);
-char **args = malloc(sizeof(char *) * num_tokens);
-/* Store each token in the args array */
-token = strtok(lineptr_copy, delim);
+        args = malloc(sizeof(char *) * num_tokens);
+        /* Store each token in the args array */
+        token = strtok(lineptr_copy, delim);
 
-for (i = 0; token != NULL; i++)
-{
-    args[i] = strdup(token);
-    token = strtok(NULL, delim);
-}
-args[i] = NULL;
+        for (i = 0; token != NULL; i++)
+        {
+            args[i] = strdup(token);
+            token = strtok(NULL, delim);
+        }
+        args[i] = NULL;
 
-execmd(args);
+        execmd(args);
 
-/* free up allocated memory for args and its elements */
-for (i = 0; args[i] != NULL; i++) {
-    free(args[i]);
-}
-free(args);
+        /* free up allocated memory for args and its elements */
+        for (i = 0; args[i] != NULL; i++)
+        {
+            free(args[i]);
+        }
+        free(args);
+
+        free(lineptr_copy);
     }
 }
