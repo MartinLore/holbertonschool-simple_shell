@@ -19,19 +19,21 @@ int main(int ac, char **argv)
     {
         printf("%s", prompt);
         nchars_read = getline(&lineptr, &n, stdin);
-        if (nchars_read == -1)
-        {
-            printf("Exiting shell....\n");
-            free(lineptr);
-            return (-1);
-        }
+if (nchars_read == -1)
+{
+    printf("Exiting shell....\n");
+    free(lineptr);
+    lineptr = NULL;
+    return (-1);
+}
 
         /* allocate space for a copy of the lineptr */
         lineptr_copy = malloc(sizeof(char) * (nchars_read + 1));
-        if (lineptr_copy == NULL)
-        {
-            perror("tsh: memory allocation error");
-            free(lineptr);
+if (lineptr_copy == NULL)
+{
+    perror("tsh: memory allocation error");
+    free(lineptr);
+    lineptr = NULL;
             return (-1);
         }
         strcpy(lineptr_copy, lineptr);
