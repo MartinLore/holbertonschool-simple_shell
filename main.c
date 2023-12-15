@@ -1,8 +1,7 @@
 #include "main.h"
 
-int main(int ac, char **argv)
-{
-    char **args = NULL;
+int main(int ac, char **argv, char **envp){
+   char **args = NULL;
     char *prompt = "$ ";
     char *lineptr = NULL, *lineptr_copy = NULL;
     size_t n = 0;
@@ -11,7 +10,9 @@ int main(int ac, char **argv)
     int num_tokens = 0;
     char *token;
     int i;
-
+    int result;
+    global_env = envp;
+ 
     (void)ac;
     (void)argv;
 
@@ -70,20 +71,55 @@ int main(int ac, char **argv)
         }
         args[i] = NULL;
 
-        execmd(args);
-
-        /* free up allocated memory for args and its elements */
-        for (i = 0; args[i] != NULL; i++)
-        {
-            free(args[i]);
-        }
-        free(args);
-
-        free(lineptr_copy);
-
-        /* Free the buffer allocated by getline and reset lineptr and n */
-        free(lineptr);
-        lineptr = NULL;
-        n = 0;
+/* If the first argument is NULL, skip this iteration */
+if (args[0] == NULL) {
+    /* free up allocated memory for args and its elements */
+    for (i = 0; args[i] != NULL; i++)
+    {
+        free(args[i]);
     }
+    free(args);
+
+    free(lineptr_copy);
+
+    /* Free the buffer allocated by getline and reset lineptr and n */
+    free(lineptr);
+    continue;
+}
+result = execmd(args);
+if (result == 127) {
+    set_last_command_status(127);
+
+    /* free up allocated memory for args and its elements */
+    for (i = 0; args[i] != NULL; i++)
+    {
+        free(args[i]);
+    }
+    free(args);
+
+    free(lineptr_copy);
+
+    /* Free the buffer allocated by getline and reset lineptr and n */
+    free(lineptr);
+    lineptr = NULL;
+    n = 0;
+
+    exit(127);
+}
+
+/* free up allocated memory for args and its elements */
+for (i = 0; args[i] != NULL; i++)
+{
+    free(args[i]);
+}
+free(args);
+
+free(lineptr_copy);
+
+/* Free the buffer allocated by getline and reset lineptr and n */
+free(lineptr);
+lineptr = NULL;
+n = 0;
+    }
+    return (0);
 }
