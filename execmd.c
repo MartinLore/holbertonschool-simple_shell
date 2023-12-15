@@ -13,7 +13,6 @@ void set_last_command_status(int status)
  *
  * @param argv An array of strings representing the command and its arguments.
  */
-<<<<<<< HEAD
 
 void execmd(char **argv)
 {
