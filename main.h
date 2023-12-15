@@ -8,3 +8,4 @@
 
 void execmd(char **argv);
 char *get_location(char *command);
+void set_last_command_status(int status);
