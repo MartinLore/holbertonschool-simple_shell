@@ -24,8 +24,7 @@ char *get_location(char *command)
 		{
 			directory_length = strlen(path_token);
             /* allocate memory for storing the command name together with the directory name */
-		file_path = malloc(command_length + directory_length + 2); /* +2 for the '/' and the '\0' */
-            /* copy the directory name into the file_path */
+		file_path = malloc(command_length + directory_length + 2);
 		strcpy(file_path, path_token);
 		strcat(file_path, "/");
 		strcat(file_path, command);
@@ -42,7 +41,6 @@ char *get_location(char *command)
 				path_token = strtok(NULL, ":");
 			}
 		}
-        /* free up the path_copy memory before returning NULL */
 	free(path_copy);
 
 	if (stat(command, &buffer) == 0)
