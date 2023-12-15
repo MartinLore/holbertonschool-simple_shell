@@ -8,12 +8,24 @@
 
 char *get_location(char *command)
 {
-	char *path, *path_copy, *path_token, *file_path;
-	int command_length, directory_length;
-	struct stat buffer;
-	path = getenv("PATH");
-	if (path)
-	{
+    struct stat buffer;
+    char *path, *path_copy, *path_token, *file_path;
+    int command_length, directory_length;
+    /* Check if the command is a full path */
+    if (command[0] == '/') {
+        if (stat(command, &buffer) == 0) {
+            /* The command is a full path to an executable, so return a copy of the command */
+            return strdup(command);
+        } else {
+            /* The command is a full path, but the file does not exist or is not an executable */
+            return NULL;
+        }
+    }
+
+    path = get_path("PATH");
+
+
+    if (path) {
         /* Duplicate the path string */
 		path_copy = strdup(path);
         /* Get length of the command that was passed */
@@ -47,6 +59,7 @@ char *get_location(char *command)
 	{
 		return (command);
 	}
+	
 	return (NULL);
 	}
 	return (NULL);
