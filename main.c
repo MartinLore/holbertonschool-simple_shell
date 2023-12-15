@@ -16,10 +16,10 @@ int main(int ac, char **argv, char **envp){
     (void)ac;
     (void)argv;
 
-    while (1)
-    {
-        if (isatty(STDIN_FILENO))
-            printf("%s", prompt);
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+			printf("%s", prompt);
 
         /* Set lineptr to NULL and n to 0 before calling getline */
         lineptr = NULL;
