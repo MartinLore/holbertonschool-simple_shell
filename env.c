@@ -1,37 +1,33 @@
 #include "main.h"
+char **global_env;
+int i;
+size_t j;
 
 /**
- * print_env - Prints the environment, excluding specific variables.
- * @env: The environment variable.
+ * print_env - prints all environment 
+ * variables except for "SNAP" and "VALGRIND_LIB".
  */
-void print_env(char **env)
-{
-	int i;
-
-	for (i = 0; env[i] != NULL; i++)
-	{
-		if (strstr(env[i], "SNAP") == NULL && strstr(env[i], "VALGRIND_LIB") == NULL)
-		{
-			printf("%s\n", env[i]);
-		}
-	}
+void print_env() {
+    for (i = 0; global_env[i] != NULL; i++) {
+        if (strstr(global_env[i], "SNAP") == NULL 
+        && strstr(global_env[i], "VALGRIND_LIB") == NULL) {
+            printf("%s\n", global_env[i]);
+        }
+    }
 }
 
 /**
-* get_path - Retrieves the PATH environment variable.
-* @env: The environment variable.
-* Return: The value of the PATH variable.
-*/
-char *get_path(char **env)
-{
-	int i;
-
-	for (i = 0; env[i] != NULL; i++)
-	{
-		if (strncmp(env[i], "PATH=", 5) == 0)
-		{
-			return (env[i] + 5);
-		}
-	}
-	return (NULL);
+ * get_path - returns the value of the `PATH` environment variable.
+ * 
+ * Return: The function `get_path()` returns a 
+ * pointer to a character array (string) that represents
+ * the value of the `PATH` environment variable.
+ */
+char *get_path() {
+    for (i = 0; global_env[i] != NULL; i++) {
+        if (strncmp(global_env[i], "PATH=", 5) == 0) {
+            return global_env[i] + 5;
+        }
+    }
+    return NULL;
 }
